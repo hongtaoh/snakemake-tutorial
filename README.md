@@ -1,10 +1,10 @@
-# A beginner's guide to snakemake 
+# A beginner's guide to Snakemake 
 
-Prerequisit: You've installed conda or miniconda
+Prerequisit: You've installed conda or miniconda.
 
 I also assume you are using a Mac or Linux. If you are using Windows, refer to [here](https://snakemake.readthedocs.io/en/stable/tutorial/setup.html#windows-subsystem-for-linux) first. 
 
-Let's say you already have a project folder. Take snakemake-tutorial as an example. 
+Let's say you already have a project folder. Take [snakemake-tutorial](https://github.com/hongtaoh/snakemake-tutorial) as an example. 
 
 ## Install snakemake
 
@@ -33,7 +33,7 @@ The above code came from [here](https://github.com/snakemake/snakemake/issues/24
 
 ## Create a Snakefile
 
-Let's say, we have this raw data, `/data/raw/raw_data.csv` :
+Let's say, we have this raw data, `data/raw/raw_data.csv` :
 
 ```txt
 year,value
@@ -42,9 +42,9 @@ year,value
 2003,6
 ```
 
-We want a `python` script that select only rows whose `year` is equal to or greater than `2002`. Let's say we name this `Python` script as `get_since_2002.py`. We will place it in the folder of `scripts`. 
+We want a `python` script that select only rows whose `year` is equal to or greater than `2002`. Let's say we name this `python` script as `get_since_2002.py`. We will place it in the folder of `scripts`. 
 
-This script, `/scripts/get_since_2002.py`, will generate an output named `since_2002.csv` based on the input: `/data/raw/raw_data.csv`. And, we want to place this output file to the folder of `/data/derived`.
+This script, `scripts/get_since_2002.py`, will generate an output named `since_2002.csv` based on the input: `data/raw/raw_data.csv`. And, we want to place this output file to the folder of `data/derived`.
 
 Based on the above information, we will have this `Snakefile`:
 
@@ -102,6 +102,8 @@ Now, go to the directory where your `Snakefile` is located, and run `snakemake -
 snakemake --cores 1
 ```
 
+What this snippt does is to find `Snakefile` and execute it. 
+
 If successful, you'll see this:
 
 ```bash
@@ -130,6 +132,55 @@ Finished job 0.
 ```
 
 And you will find `since_2002.csv` in `data/derived`. 
+
+## Other issues
+
+### Multiple inputs and/or outputs
+
+You can have multiple input and/or outputs for a rule. Seperate items with `,`.
+
+#### Solution 1:
+
+```
+rule script_1:
+    input: FILE_1, FILE_2
+    output: FILE_3, FILE_4
+    shell: "python script_1.py {input} {output}"
+```
+
+Then in `script_1.py`:
+
+```
+import sys
+
+FILE_1 = sys.argv[1]
+FILE_2 = sys.argv[2]
+FILE_3 = sys.argv[3]
+FILE_4 = sys.argv[4]
+```
+
+#### Solution 2:
+
+```
+rule script_2:
+    input: FILE_1, FILE_2
+    output: FILE_3, FILE_4
+    script: "script_2.py"
+```
+
+Then in `script_2.py`, just for illustration:
+
+```
+import pandas as pd
+
+pd.read_csv(snakemake.input[0])
+pd.read_csv(snakemake.input[1])
+df1.to_csv(snakemake.output[0], index=False)
+df2.to_csv(snakemake.output[1], index=False)
+```
+
+The differencs between the two solutions are easy to see. Just notice that in Solution 1, we use `shell: "python script_1.py {input} {output}"` whereas in Solution 2, we use `script: "script_2.py"`.
+
 
 ## References
 
