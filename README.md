@@ -135,6 +135,20 @@ And you will find `since_2002.csv` in `data/derived`.
 
 ## Other issues
 
+## Multiple jobs
+
+If you have multiple jobs, i.e., multiple `rule`s. It's better if you can specify `rull all`. This way, Snakemake will check whether all your desired outputs have been produced. If one is missing, it will run that script to produce that result. 
+
+```
+rule all:
+    input:
+        OUTPUT1,
+        OUTPUT2,
+        OUTPUT3,
+```
+
+Please note that you will use `input` here. Also, the list below `input` is in fact, all your output files. I know it sounds weird. 
+
 ### Multiple inputs and/or outputs
 
 You can have multiple input and/or outputs for a rule. Seperate items with `,`.
