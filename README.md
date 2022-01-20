@@ -198,5 +198,6 @@ The differencs between the two solutions are easy to see. Just notice that in So
 
 ## References
 
+- [yy/project-template](https://github.com/yy/project-template)
 - [Set up your project](https://goodresearch.dev/setup.html)
 - [Snakemake Tutorial, Setup](https://snakemake.readthedocs.io/en/stable/tutorial/setup.html)
