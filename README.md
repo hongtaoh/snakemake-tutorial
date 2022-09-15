@@ -16,10 +16,10 @@ conda create --name s-tutorial python=3.8
 conda activate s-tutorial
 ```
 
-Then, we install packages into this virtual environment. For simplicity, I will only use `pandas`. 
+Then, we install packages into this virtual environment:
 
 ```
-conda install pandas numpy matplotlib scipy requests seaborn selenium beautifulsoup4
+conda install pandas numpy jupyter requests seaborn selenium beautifulsoup4
 ```
 
 Then, install snakemake:
