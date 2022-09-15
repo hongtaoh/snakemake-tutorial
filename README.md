@@ -19,15 +19,20 @@ conda activate s-tutorial
 Then, we install packages into this virtual environment. For simplicity, I will only use `pandas`. 
 
 ```
-conda install pandas
+conda install pandas numpy matplotlib scipy requests seaborn selenium beautifulsoup4
 ```
 
 Then, install snakemake:
 
 ```
+conda install -c bioconda -c conda-forge snakemake
+# source: https://github.com/snakemake/snakemake/issues/130#issue-530105666
+```
+
+<!-- ```
 pip3 install "git+https://github.com/ashwinvis/datrie.git@python3.8-cythonize"
 pip3 install snakemake
-```
+``` -->
 
 The above code came from [here](https://github.com/snakemake/snakemake/issues/246)
 
