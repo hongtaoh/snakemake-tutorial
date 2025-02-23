@@ -55,7 +55,7 @@ Based on the above information, we will have this `Snakefile`:
 
 
 ```
-ffrom os.path import join as pjoin
+from os.path import join as pjoin
 
 DATA_DIR = "data/"
 RAW_DATA_DIR = pjoin(DATA_DIR, "raw")
